@@ -1,0 +1,9 @@
+﻿version: '3'
+
+services:
+  database:
+    image: 'postgres:15'
+    ports:
+      - 5444:5432
+    env_file:
+      - .env
