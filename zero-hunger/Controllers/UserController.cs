@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using zero_hunger.Models;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -20,11 +21,11 @@ namespace zero_hunger.Controllers
             _dbContext = context;
         }
 
-        [HttpGet]
-        public IList<Job> Get()
-        {
-            return (this._dbContext.Job.Include(x => x.User).ToList());
-        }
+        //[HttpGet]
+        //public IList<Job> Get()
+        //{
+        //    return (this._dbContext.Job.Include(x => x.User).ToList());
+        //}
     }
 }
 

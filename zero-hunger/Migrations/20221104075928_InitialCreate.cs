@@ -15,7 +15,8 @@ namespace zero_hunger.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    FirstName = table.Column<string>(type: "text", nullable: true)
+                    DisplayName = table.Column<string>(type: "text", nullable: false),
+                    Password = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -23,19 +24,19 @@ namespace zero_hunger.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Job",
+                name: "Restaurant",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: true),
+                    DisplayName = table.Column<string>(type: "text", nullable: true),
                     UserId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Job", x => x.Id);
+                    table.PrimaryKey("PK_Restaurant", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Job_User_UserId",
+                        name: "FK_Restaurant_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
                         principalColumn: "Id",
@@ -43,15 +44,15 @@ namespace zero_hunger.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Job_UserId",
-                table: "Job",
+                name: "IX_Restaurant_UserId",
+                table: "Restaurant",
                 column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Job");
+                name: "Restaurant");
 
             migrationBuilder.DropTable(
                 name: "User");

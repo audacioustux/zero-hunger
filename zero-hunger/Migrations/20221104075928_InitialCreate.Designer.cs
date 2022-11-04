@@ -11,7 +11,7 @@ using zero_hunger;
 namespace zero_hunger.Migrations
 {
     [DbContext(typeof(PostgreSqlDBContext))]
-    [Migration("20221104063936_InitialCreate")]
+    [Migration("20221104075928_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,7 +23,7 @@ namespace zero_hunger.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("zero_hunger.Job", b =>
+            modelBuilder.Entity("zero_hunger.Models.Restaurant", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -31,7 +31,7 @@ namespace zero_hunger.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Name")
+                    b.Property<string>("DisplayName")
                         .HasColumnType("text");
 
                     b.Property<int>("UserId")
@@ -41,10 +41,10 @@ namespace zero_hunger.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Job");
+                    b.ToTable("Restaurant");
                 });
 
-            modelBuilder.Entity("zero_hunger.User", b =>
+            modelBuilder.Entity("zero_hunger.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -52,7 +52,12 @@ namespace zero_hunger.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("DisplayName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -60,9 +65,9 @@ namespace zero_hunger.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("zero_hunger.Job", b =>
+            modelBuilder.Entity("zero_hunger.Models.Restaurant", b =>
                 {
-                    b.HasOne("zero_hunger.User", "User")
+                    b.HasOne("zero_hunger.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
