@@ -21,11 +21,11 @@ namespace zero_hunger.Controllers
             _dbContext = context;
         }
 
-        //[HttpGet]
-        //public IList<Job> Get()
-        //{
-        //    return (this._dbContext.Job.Include(x => x.User).ToList());
-        //}
+        [HttpGet]
+        public IList<User> Get()
+        {
+            return (this._dbContext.User.ToList());
+        }
     }
 }
 
