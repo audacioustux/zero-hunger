@@ -9,7 +9,8 @@ public class Restaurant
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
     public string DisplayName { get; set; } = null!;
-    public int UserId { get; set; }
+    public int ManagedByUserId { get; set; }
+
     [ForeignKey("UserId")]
-    public virtual User User { get; set; } = null!;
+    public virtual User ManagedByUser { get; set; } = null!;
 }

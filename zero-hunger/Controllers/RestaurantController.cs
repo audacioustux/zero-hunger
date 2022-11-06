@@ -10,11 +10,11 @@ namespace zero_hunger.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : Controller
+    public class RestaurantController : Controller
     {
         private PostgreSqlDBContext _dbContext;
 
-        public UserController(PostgreSqlDBContext context)
+        public RestaurantController(PostgreSqlDBContext context)
         {
             _dbContext = context;
         }
@@ -22,23 +22,22 @@ namespace zero_hunger.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAsync()
         {
-            return Ok(await _dbContext.User.ToListAsync());
+            return Ok(await _dbContext.Restaurant.ToListAsync());
         }
 
         [HttpGet]
-        [Route("getUserById")]
-        public async Task<IActionResult> GetUserByIdAsync(int id) {
-            return Ok(await _dbContext.User.FindAsync(id));
-	    }
+        [Route("getRestaurantById")]
+        public async Task<IActionResult> GetRestaurantByIdAsync(int id)
+        {
+            return Ok(await _dbContext.Restaurant.FindAsync(id));
+        }
 
         [HttpPost]
-        public async Task<IActionResult> PostAsync(User user)
+        public async Task<IActionResult> PostAsync(Restaurant restaurant)
         {
-            _dbContext.User.Add(user);
+            _dbContext.Restaurant.Add(restaurant);
             await _dbContext.SaveChangesAsync();
-            return Created($"/getUserById?id={user.Id}", user);
+            return Created($"/getRestaurantById?id={restaurant.Id}", restaurant);
         }
     }
 }
-
-
