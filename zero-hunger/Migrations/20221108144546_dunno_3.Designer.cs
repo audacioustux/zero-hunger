@@ -12,8 +12,8 @@ using zero_hunger;
 namespace zero_hunger.Migrations
 {
     [DbContext(typeof(PostgreSqlDBContext))]
-    [Migration("20221106161559_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20221108144546_dunno_3")]
+    partial class dunno_3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -41,9 +41,18 @@ namespace zero_hunger.Migrations
                     b.Property<int>("CanPreserveForMinutes")
                         .HasColumnType("integer");
 
+                    b.Property<DateTime?>("CollectedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("CompletedAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsCollected")
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("boolean");
@@ -69,15 +78,16 @@ namespace zero_hunger.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("ManagedByUserId")
-                        .HasColumnType("integer");
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasColumnType("text");
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("ManagedByUserId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("ManagedByUserId");
 
                     b.ToTable("Restaurant");
                 });
@@ -129,7 +139,7 @@ namespace zero_hunger.Migrations
                 {
                     b.HasOne("zero_hunger.Models.User", "ManagedByUser")
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("ManagedByUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

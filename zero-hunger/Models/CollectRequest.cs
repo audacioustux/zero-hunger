@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace zero_hunger.Models
 {
-    public class CollectRequest
+    public class CollectRequest : Helper.BaseEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -13,11 +13,12 @@ namespace zero_hunger.Models
         public int ByRestaurantId { get; set; }
         public int AssignedEmployeeId { get; set; }
         public bool IsCompleted { get; set; }
-        [Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime CreatedAt { get; set; }
+        public bool IsCollected { get; set; }
+        public DateTime? CollectedAt { get; set; }
+        public DateTime? CompletedAt { get; set; }
 
         [ForeignKey("ByRestaurantId")]
-        public virtual Restaurant ByRestaurant { get; set; } = null!;
+        public virtual Restaurant? ByRestaurant { get; set; }
         [ForeignKey("AssignedEmployeeId")]
         public virtual User? AssignedEmployee { get; set; }
 

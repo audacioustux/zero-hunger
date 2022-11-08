@@ -34,9 +34,11 @@
     <None Remove="Microsoft.EntityFrameworkCore.Sqlite" />
     <None Remove="Controllers\RestaurantController.txt" />
     <None Remove="New Folder\" />
+    <None Remove="Models\Helper\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="New Folder\" />
+    <Folder Include="Models\Helper\" />
   </ItemGroup>
 </Project>

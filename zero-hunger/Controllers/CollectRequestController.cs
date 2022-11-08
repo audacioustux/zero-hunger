@@ -12,7 +12,7 @@ namespace zero_hunger.Controllers
     [ApiController]
     public class CollectRequestController : Controller
     {
-        private PostgreSqlDBContext _dbContext;
+        private readonly PostgreSqlDBContext _dbContext;
 
         public CollectRequestController(PostgreSqlDBContext context)
         {
@@ -20,14 +20,14 @@ namespace zero_hunger.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAsync()
+        public async Task<IActionResult> Get()
         {
             return Ok(await _dbContext.CollectRequest.ToListAsync());
         }
 
         [HttpGet]
         [Route("getCollectRequestById")]
-        public async Task<IActionResult> GetCollectRequestByIdAsync(int id)
+        public async Task<IActionResult> GetCollectRequestById(int id)
         {
             return Ok(await _dbContext.CollectRequest.FindAsync(id));
         }
@@ -38,6 +38,36 @@ namespace zero_hunger.Controllers
             _dbContext.CollectRequest.Add(collectRequest);
             await _dbContext.SaveChangesAsync();
             return Created($"/getCollectRequestById?id={collectRequest.Id}", collectRequest);
+        }
+
+        [HttpPut]
+        [Route("setAsCompleted")]
+        public async Task<IActionResult> SetAsCompleted(CollectRequest collectRequest)
+        {
+            var _collectRequest = await _dbContext.CollectRequest.FindAsync(collectRequest.Id);
+            if (_collectRequest != null)
+            {
+                _collectRequest.IsCompleted = true;
+                _collectRequest.CompletedAt = DateTime.Now;
+                _dbContext.CollectRequest.Update(_collectRequest);
+                await _dbContext.SaveChangesAsync();
+            }
+            return NoContent();
+        }
+
+        [HttpPut]
+        [Route("setAsCollected")]
+        public async Task<IActionResult> SetAsCollected(CollectRequest collectRequest)
+        {
+            var _collectRequest = await _dbContext.CollectRequest.FindAsync(collectRequest.Id);
+            if (_collectRequest != null)
+            {
+                _collectRequest.IsCollected = true;
+                _collectRequest.CollectedAt = DateTime.Now;
+                _dbContext.CollectRequest.Update(_collectRequest);
+                await _dbContext.SaveChangesAsync();
+            }
+            return NoContent();
         }
     }
 }

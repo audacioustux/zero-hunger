@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using zero_hunger;
@@ -11,9 +12,10 @@ using zero_hunger;
 namespace zero_hunger.Migrations
 {
     [DbContext(typeof(PostgreSqlDBContext))]
-    partial class PostgreSqlDBContextModelSnapshot : ModelSnapshot
+    [Migration("20221108150614_dunno_8")]
+    partial class dunno_8
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
