@@ -12,8 +12,8 @@ namespace zero_hunger.Models
         public int CanPreserveForMinutes { get; set; }
         public int ByRestaurantId { get; set; }
         public int AssignedEmployeeId { get; set; }
-        public bool IsCompleted { get; set; }
-        public bool IsCollected { get; set; }
+        // public bool IsCompleted { get; set; }
+        // public bool IsCollected { get; set; }
         public DateTime? CollectedAt { get; set; }
         public DateTime? CompletedAt { get; set; }
 
